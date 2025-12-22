@@ -1,0 +1,49 @@
+Project "AuthNotes" {
+  database_type: "PostgreSQL"
+  Note: "AuthNotes minimal database schema for authentication and user owned notes"
+}
+
+/* User Authentication */
+
+Table auth.User {
+  id big_auto [pk]
+  username varchar [unique, not null]
+  email varchar [not null]
+  password varchar [not null]
+  is_active boolean [default: true]
+  is_staff boolean [default: false]
+  date_joined timestamp
+
+  Note: "Django built in User model"
+}
+
+/* Notes Core Domain */
+
+Table base.Note {
+  id big_auto [pk]
+  user_id big_int [not null, ref: > auth.User.id]
+  notes text [not null]
+
+  Note: "Each note belongs to one authenticated user"
+}
+
+/* JWT Token Management */
+
+Table token_blacklist.OutstandingToken {
+  id big_auto [pk]
+  user_id big_int [ref: > auth.User.id]
+  jti varchar [unique, not null]
+  token text [not null]
+  created_at timestamp
+  expires_at timestamp [not null]
+
+  Note: "Issued JWT refresh tokens"
+}
+
+Table token_blacklist.BlacklistedToken {
+  id big_auto [pk]
+  token_id big_int [unique, not null, ref: > token_blacklist.OutstandingToken.id]
+  blacklisted_at timestamp
+
+  Note: "Invalidated JWT tokens"
+}
