@@ -36,7 +36,7 @@ if DEBUG:
 else:
     ALLOWED_HOSTS = os.getenv(
         "ALLOWED_HOSTS",
-        "https://authnotes.onrender.com"
+        "authnotes.onrender.com"
     ).split()
 
 # Application definition
