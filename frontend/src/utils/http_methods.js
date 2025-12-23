@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const url = "http://127.0.0.1:8000/api/";
+
+const url = import.meta.env.REACT_APP_API_URL+"/api/" || "http://127.0.0.1:8000"+"/api/";
+
 
 export async function getToken(data) {
     const resp = await axios.post(url + "token/",data,{
