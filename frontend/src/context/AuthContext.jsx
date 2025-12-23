@@ -1,164 +1,127 @@
-import React, { createContext } from "react";
-import { useState, useEffect } from "react";
-import { getToken, update_access_token, registerUser } from "../utils/http_methods";
+import React, { createContext, useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
-import { redirect } from "react-router-dom";
+
+import {
+  getToken,
+  update_access_token,
+  registerUser,
+} from "../utils/http_methods";
 
 const AuthContext = createContext();
-
 export default AuthContext;
 
 export const AuthProvider = ({ children }) => {
-  console.log(localStorage.getItem("authToken"));
+  const navigate = useNavigate();
+
   const [authToken, setAuthToken] = useState(() =>
-    localStorage.getItem("authToken") ? JSON.parse(localStorage.getItem("authToken")) : null
+    localStorage.getItem("authToken")
+      ? JSON.parse(localStorage.getItem("authToken"))
+      : null
+  );
+
+  const [user, setUser] = useState(() =>
+    authToken ? jwtDecode(authToken.access).username : null
+  );
+
+  const [userID, setUserID] = useState(() =>
+    authToken ? jwtDecode(authToken.access).user_id : null
   );
 
   const [loading, setLoading] = useState(true);
-  // const [authToken, setAuthToken] = useState(() => localStorage.getItem("authToken") || null);
-  
-  const [user, setUser] = useState(() =>
-    localStorage.getItem("authToken")
-      ? jwtDecode(JSON.parse(localStorage.getItem("authToken")).access).username
-      : null
-  );
-  const [userID, setUserID] = useState(() =>
-    localStorage.getItem("authToken")
-      ? jwtDecode(JSON.parse(localStorage.getItem("authToken")).access).user_id
-      : null
-  );
 
+  /* ---------------- LOGIN ---------------- */
   const loginHandler = async (userData) => {
     try {
       const resp = await getToken(userData);
+
       if (resp.status === 200) {
-        // console.log(resp, resp.data.access);
         setAuthToken(resp.data);
-        console.log(jwtDecode(resp.data.access));
         setUser(jwtDecode(resp.data.access).username);
         setUserID(jwtDecode(resp.data.access).user_id);
         localStorage.setItem("authToken", JSON.stringify(resp.data));
       }
+
       return resp;
     } catch (error) {
-      if (error.response) {
-        // The request was made and server responded with a status code not in 2xx
-        console.error("Backend error:", error.response.data); // 👈 this has your backend's message
-
-        var err_msg = error.response.data.detail || "Something went wrong.";
-        // alert(err_msg);
-        return err_msg;
-      } else if (error.request) {
-        // The request was made but no response
-        console.error("No response:", error.request);
-      } else {
-        // Something else happened
-        console.error("Axios error:", error.message);
-      }
+      return error?.response?.data?.detail || "Login failed";
     }
   };
 
+  /* ---------------- REGISTER ---------------- */
   const registerHandler = async (userData) => {
     try {
       const resp = await registerUser(userData);
+
       if (resp.status === 201) {
-        console.log(resp, resp.data.token);
         setAuthToken(resp.data.token);
-        console.log(jwtDecode(resp.data.token.access), resp.data.username);
         setUser(resp.data.username);
         setUserID(jwtDecode(resp.data.token.access).user_id);
         localStorage.setItem("authToken", JSON.stringify(resp.data.token));
       }
+
       return resp;
     } catch (error) {
-      if (error.response) {
-        // The request was made and server responded with a status code not in 2xx
-        console.error("Backend error:", error.response.data); // 👈 this has your backend's message
-
-        var err_msg = error.response.data.error || error.response.data.username || "Something went wrong.";
-        // alert(err_msg);
-        return err_msg;
-      } else if (error.request) {
-        // The request was made but no response
-        console.error("No response:", error.request);
-      } else {
-        // Something else happened
-        console.error("Axios error:", error.message);
-      }
+      return (
+        error?.response?.data?.error ||
+        error?.response?.data?.username ||
+        "Registration failed"
+      );
     }
   };
 
-  const updateToken = async (refreshToken) => {
-    try {
-      console.log("Updating the Token!");
-      const resp = await update_access_token(refreshToken);
-      if (resp.status === 200) {
-        console.log(resp, resp.data.access);
-        setAuthToken(resp.data);
-        console.log(jwtDecode(resp.data.access));
-        setUser(jwtDecode(resp.data.access).username);
-        setUserID(jwtDecode(resp.data.access).user_id);
-        localStorage.setItem("authToken", JSON.stringify(resp.data));
-        
-        if(loading){
-          setLoading(false);
-        }
-
-      }
-    } catch (error) {
-        
-        logoutUser();
-
-      if (error.response) {
-        // The request was made and server responded with a status code not in 2xx
-        console.error("Backend error:", error.response.data); // 👈 this has your backend's message
-
-        // var err_msg = error.response.data.detail || "Something went wrong.";
-        // alert(err_msg);
-      } else if (error.request) {
-        // The request was made but no response
-        console.error("No response:", error.request);
-      } else {
-        // Something else happened
-        console.error("Axios error:", error.message);
-      }
-    }
-  };
-
-  const logoutUser = () => {
+  /* ---------------- LOGOUT ---------------- */
+  const logoutUser = useCallback(() => {
     setAuthToken(null);
     setUser(null);
     setUserID(null);
     localStorage.removeItem("authToken");
-    redirect("/login");
-  };
+    navigate("/login");
+  }, [navigate]);
 
+  /* ---------------- TOKEN REFRESH ---------------- */
+  const updateToken = useCallback(
+    async (refreshToken) => {
+      try {
+        const resp = await update_access_token(refreshToken);
+
+        if (resp.status === 200) {
+          setAuthToken(resp.data);
+          setUser(jwtDecode(resp.data.access).username);
+          setUserID(jwtDecode(resp.data.access).user_id);
+          localStorage.setItem("authToken", JSON.stringify(resp.data));
+        }
+      } catch (error) {
+        logoutUser();
+      } finally {
+        if (loading) setLoading(false);
+      }
+    },
+    [logoutUser, loading]
+  );
+
+  /* ---------------- AUTO REFRESH EFFECT ---------------- */
   useEffect(() => {
-    let fourMinutes = 3*60*1000;
-    
-    if(loading && authToken){
-      updateToken({"refresh":authToken?.refresh})
+    if (loading && authToken) {
+      updateToken({ refresh: authToken.refresh });
     }
 
-    let interval = setInterval(() => {
-        if(authToken){
-            console.log(authToken, authToken.refresh)
-            updateToken({"refresh":authToken.refresh});
-        }
-    }, fourMinutes);
+    const interval = setInterval(() => {
+      if (authToken) {
+        updateToken({ refresh: authToken.refresh });
+      }
+    }, 3 * 60 * 1000); // 3 minutes
 
-    return () => {
-      clearInterval(interval);
-    };
-  }, [authToken, loading]);
+    return () => clearInterval(interval);
+  }, [authToken, loading, updateToken]);
 
-  let contextData = {
-    user: user,
-    userID: userID,
-    authToken:authToken,
-    loginHandler: loginHandler,
+  const contextData = {
+    user,
+    userID,
+    authToken,
+    loginHandler,
     logoutHandler: logoutUser,
-    registerHandler: registerHandler
+    registerHandler,
   };
 
   return (
