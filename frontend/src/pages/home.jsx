@@ -24,7 +24,7 @@ const Home = () => {
     request_dict["notes"] = activeItem;
     request_dict["user"] = auth.userID;
     const resp = await update_note_for_user(auth.authToken.access, request_dict,editNoteID);
-    if(resp.status == 201 || resp.status == 200){
+    if(resp.status === 201 || resp.status === 200){
        setEdit(null);
        setActiveItem("");
        retrieve_notes_for_user();
@@ -41,7 +41,7 @@ const Home = () => {
     request_dict["notes"] = activeItem;
     request_dict["user"] = auth.userID;
     const resp = await add_note_for_user(auth.authToken.access,request_dict);
-    if(resp.status == 201 || resp.status == 200){
+    if(resp.status === 201 || resp.status === 200){
        setActiveItem("");
        retrieve_notes_for_user();
     }
@@ -54,7 +54,7 @@ const Home = () => {
   async function deleteNoteHandlerUser(noteID){
     const resp = await delete_note_for_user(auth.authToken.access,noteID);
     console.log(resp);
-    if(resp.status == 204 || resp.status == 200){
+    if(resp.status === 204 || resp.status === 200){
        setActiveItem("");
        setEdit(null);
        retrieve_notes_for_user();
@@ -90,7 +90,7 @@ const Home = () => {
         setNotes(response.data);
       } else if (
         response.status === 401 ||
-        response.statusText == "Unauthorized"
+        response.statusText === "Unauthorized"
       ) {
         auth.logoutHandler();
       }

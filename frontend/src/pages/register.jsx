@@ -23,7 +23,7 @@ const Register = () => {
     console.log(formFields);
     const response = await auth.registerHandler(formFields);
     console.log(response);
-    if (response.status == 201) {
+    if (response.status === 201) {
       setError(null);
       console.log("Register Successfully!!");
       navigate("/");

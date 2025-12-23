@@ -21,7 +21,7 @@ const Login = () => {
     console.log(formFields);
     const response = await auth.loginHandler(formFields);
     // console.log(response);
-    if (response.status == 200) {
+    if (response.status === 200) {
       setError(null);
       console.log("LoggedIn Successfully!!");
       navigate("/");

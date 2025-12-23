@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { createContext } from "react";
 import { useState, useEffect } from "react";
 import { getToken, update_access_token, registerUser } from "../utils/http_methods";
@@ -114,7 +113,7 @@ export const AuthProvider = ({ children }) => {
         // The request was made and server responded with a status code not in 2xx
         console.error("Backend error:", error.response.data); // 👈 this has your backend's message
 
-        var err_msg = error.response.data.detail || "Something went wrong.";
+        // var err_msg = error.response.data.detail || "Something went wrong.";
         // alert(err_msg);
       } else if (error.request) {
         // The request was made but no response
