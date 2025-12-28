@@ -6,7 +6,6 @@ import Home from "./pages/home";
 import Register from "./pages/register";
 import ProtectedRoute from "./components/ProtectedRoutes";
 import RouterWrapper from "./components/RouteWrapper";
-import { AuthProvider } from "./context/AuthContext";
 
 const def_route = createBrowserRouter([
   {
@@ -29,11 +28,11 @@ const def_route = createBrowserRouter([
 
 function App() {
   return (
-    <RouterProvider router={def_route}>
-        <AuthProvider>
+    // <AuthProvider>
+      <RouterProvider router={def_route}>
         <div className="App"></div>
-    </AuthProvider>
       </RouterProvider>
+    // </AuthProvider>
   );
 }
 
