@@ -29,11 +29,11 @@ const def_route = createBrowserRouter([
 
 function App() {
   return (
-    <AuthProvider>
-      <RouterProvider router={def_route}>
+    <RouterProvider router={def_route}>
+        <AuthProvider>
         <div className="App"></div>
-      </RouterProvider>
     </AuthProvider>
+      </RouterProvider>
   );
 }
 
