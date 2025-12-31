@@ -1,6 +1,6 @@
 import NavigationBar from "./Navigation";
 import { Outlet } from "react-router-dom";
-import { AuthProvider } from "./context/AuthContext";
+import { AuthProvider } from "../context/AuthContext";
 
 const RouterWrapper = () => {
   return (
