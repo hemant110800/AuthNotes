@@ -17,16 +17,12 @@ https://authnotes.netlify.app/
 You can view the database diagram for this web app here: https://dbdocs.io/hemantbhati1208/AuthNotes
 
 ## Setting Up Project
-Both frontend[] and backend Directory contain their separate Readme for setting up the project in local.
+Both frontend[#https://github.com/hemant110800/AuthNotes/tree/main/frontend] and backend(#https://github.com/hemant110800/AuthNotes/tree/main/backend) Directory contain their separate Readme for setting up the project in local.
 
 ## Setting up Dbdocs
 This link can be referred for dbdocs commands: https://dbdocs.io/docs
 
 ## Deployment Platforms
-**Frontend:** Netlify
-**Backend:** Render 
-**Database:** Render
-
-This link can be referred for dbdocs commands: https://dbdocs.io/docs
-
-Deployment Platforms
+**Frontend:** Netlify   
+**Backend:** Render    
+**Database:** Render   
