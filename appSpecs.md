@@ -129,5 +129,3 @@ This project is designed to demonstrate:
 - Deployment-ready development practices
   
 Any additional assumptions or implementation trade-offs are documented in the respective README.md files.
-
-Just tell me 👍
