@@ -36,8 +36,7 @@ REACT_APP_API_URL=http://127.0.0.1:8000
 
 ### 4. Run the Development Server
 npm start   
-The application will be available at:   
-http://localhost:3000
+The application will be available at:- http://localhost:3000
 
 ## Authentication Flow
 
