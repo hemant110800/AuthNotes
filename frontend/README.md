@@ -18,7 +18,7 @@ The frontend communicates with a Django REST Framework backend using JWT-based a
 ## Local Setup Instructions
 
 ### 1. Clone the Repository
-git clone <your-authnotes-frontend-repo-url>   
+git clone your-authnotes-frontend-repo-url   
 cd authnotes-frontend
 
 ### 2. Install Dependencies
