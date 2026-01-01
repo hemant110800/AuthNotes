@@ -53,7 +53,7 @@ This project demonstrates real-world full-stack development concepts including f
 - Structured schema for users and notes   
 - Migration-based schema evolution   
 
-##### Validation & Error Handling
+#### Validation & Error Handling
 - Server-side validation for user inputs   
 - Proper HTTP status codes    
 - Meaningful and consistent error responses   
