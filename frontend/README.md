@@ -28,10 +28,11 @@ npm install
 Create a .env file in the project root:   
 REACT_APP_API_URL=http://127.0.0.1:8000   
 
-**Important Notes**
-All React environment variables must start with REACT_APP_   
-REACT_APP_API_URL should point to your running backend server   
-Restart the dev server after changing .env
+**Important Notes**   
+
+- All React environment variables must start with REACT_APP_   
+- REACT_APP_API_URL should point to your running backend server   
+- Restart the dev server after changing .env
 
 ### 4. Run the Development Server
 npm start   
