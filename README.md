@@ -22,6 +22,12 @@ Both [frontend](https://github.com/hemant110800/AuthNotes/tree/main/frontend) an
 ## Setting up Dbdocs
 This link can be referred for dbdocs commands: https://dbdocs.io/docs
 
+## Tech Stack
+**Frontend:** React, JavaScript, Axios   
+**Backend:** Django, Django REST Framework   
+**Authentication:** JWT   
+**Database:** SQLite (development)   
+
 ## Deployment Platforms
 **Frontend:** Netlify   
 **Backend:** Render    
