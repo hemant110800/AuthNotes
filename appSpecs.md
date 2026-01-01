@@ -5,8 +5,7 @@
 
 ### Introduction
 
-AuthNotes is a full-stack web application that allows users to securely create, manage, and organize personal notes.   
-The application provides user authentication, ensuring that each user can access and manage only their own data.   
+AuthNotes is a full-stack web application that allows users to securely create, manage, and organize personal notes. The application provides user authentication, ensuring that each user can access and manage only their own data.   
 
 This project demonstrates real-world full-stack development concepts including frontend development, backend API design, JWT-based authentication, database modeling, and cloud deployment.
 
