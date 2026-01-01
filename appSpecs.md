@@ -81,85 +81,54 @@ The database schema includes:
 - Each user can access only their own notes; no shared or collaborative note functionality is included.    
 - The application is optimized for modern web browsers; legacy browser support is not guaranteed.    
 
-All assumptions are documented to ensure transparency during technical evaluation.
+All assumptions are documented to ensure transparency during technical evaluation.   
 
 ### Project Setup
 
-Frontend and backend are maintained in separate directories
+- Frontend and backend are maintained in separate directories   
+- Each directory contains its own README.md with detailed setup instructions   
+- Backend and frontend are deployed independently   
 
-Each directory contains its own README.md with detailed setup instructions
+### Tech Stack Summary
 
-Backend and frontend are deployed independently
+#### Frontend
+- React   
+- JavaScript
+- Context API   
+- Axios   
 
-Tech Stack Summary
-Frontend
+#### Backend
+- Django   
+- Django REST Framework   
+- JWT Authentication
 
-React
-
-JavaScript
-
-Context API
-
-Axios
-
-Backend
-
-Django
-
-Django REST Framework
-
-JWT Authentication
-
-Database
-
+#### Database
 SQLite (development)
 
-Integrations & Tools
+#### Integrations & Tools
+- JWT (Authentication)   
+- GitHub (Version Control)   
+- Netlify (Frontend Deployment)   
+- Render (Backend Deployment)   
 
-JWT (Authentication)
+### Future Enhancements
 
-GitHub (Version Control)
+- Migration to PostgreSQL for production environments   
+- Improved token handling (refresh token rotation)
+- User profile management   
+- Search and filtering for notes   
+- Tag-based note organization  
 
-Netlify (Frontend Deployment)
+### Evaluation Focus
 
-Render (Backend Deployment)
-
-Future Enhancements
-
-Migration to PostgreSQL for production environments
-
-Improved token handling (refresh token rotation)
-
-User profile management
-
-Search and filtering for notes
-
-Tag-based note organization
-
-Evaluation Focus
-
-This project is designed to demonstrate:
-
-Secure authentication workflows
-
-User-specific data handling
-
-Full-stack application architecture
-
-Frontend–backend integration
-
-Deployment-ready development practices
-
+This project is designed to demonstrate:   
+ 
+- Secure authentication workflows   
+- User-specific data handling   
+- Full-stack application architecture   
+- Frontend–backend integration    
+- Deployment-ready development practices
+  
 Any additional assumptions or implementation trade-offs are documented in the respective README.md files.
-
-If you want next, I can:
-
-Align AuthNotes README + AppSpec perfectly
-
-Create a DecisionHistory.md for AuthNotes
-
-Simplify this for assignment submission
-
-Make a combined portfolio-ready summary
 
 Just tell me 👍
