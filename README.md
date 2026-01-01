@@ -26,7 +26,7 @@ This link can be referred for dbdocs commands: https://dbdocs.io/docs
 **Frontend:** React, JavaScript, Axios   
 **Backend:** Django, Django REST Framework   
 **Authentication:** JWT   
-**Database:** SQLite (development)   
+**Database:** SQLite   
 
 ## Deployment Platforms
 **Frontend:** Netlify   
